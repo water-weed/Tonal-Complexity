@@ -36,8 +36,8 @@ close all hidden;
 directory = 'data_feature/';
 
 
-filename = 'Bach_BWV988-Aria-Measures1-4_Meinard_fast.wav';
-%filename = 'Burgmueller_Op100-02-FirstPart_Meinard_SE.wav';
+%filename = 'Bach_BWV988-Aria-Measures1-4_Meinard_fast.wav';
+filename = 'Burgmueller_Op100-02-FirstPart_Meinard_SE.wav';
 %filename = 'Systematic_Cadence-C-Major_Meinard_portato.wav';
 %filename = 'Systematic_Cadence-C-Major_Meinard_staccato.wav';
 %filename = 'Systematic_Scale-C-Major_Meinard_fast.wav';
@@ -60,13 +60,15 @@ parameter.vis = 0;
 %parameter.save_dir = 'data_feature/';
 %parameter.save_filename = strcat(sideinfo.wav.filename(1:length(sideinfo.wav.filename)-4));
 [f_chroma_norm,sideinfo] = pitch_to_chroma(f_pitch,parameter,sideinfo);
+disp(f_chroma_norm)
+%save('data_CLP/Burgmueller_Op100-02-FirstPart_Meinard_SE.mat', "f_chroma_norm");
 
 
 parameter.applyLogCompr = 1;
 parameter.factorLogCompr = 100;
 f_logchroma_norm = pitch_to_chroma(f_pitch,parameter,sideinfo);
 disp(f_logchroma_norm)
-save('data_CLP/Bach_BWV988-Aria-Measures1-4_Meinard_fast.mat', "f_logchroma_norm");
+save('data_CLP/Burgmueller_Op100-02-FirstPart_Meinard_SE.mat', "f_logchroma_norm");
 
 parameter.winLenSmooth = 21;
 parameter.downsampSmooth = 5;

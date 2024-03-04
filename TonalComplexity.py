@@ -3,10 +3,13 @@ import math
 import cmath
 from scipy.io import loadmat
 
-clp_mat = loadmat('MATLAB-Chroma-Toolbox_2.0\\MATLAB-Chroma-Toolbox_2.0\\data_CLP\\Bach_BWV988-Aria-Measures1-4_Meinard_fast.mat')
+clp_mat = loadmat('MATLAB-Chroma-Toolbox_2.0\\MATLAB-Chroma-Toolbox_2.0\\data_CLP\\Burgmueller_Op100-02-FirstPart_Meinard_SE.mat')
 clp1 = clp_mat['f_logchroma_norm']
-clp = numpy.transpose(clp1)
-#print(clp)
+clp2 = numpy.transpose(clp1)
+#L1 normnized
+l1_norms = numpy.sum(numpy.abs(clp2), axis=1)
+clp = clp2 / l1_norms[:, numpy.newaxis]
+print(clp)
 
 
 def entropy(c):
@@ -46,11 +49,17 @@ def tonal_complexity_caculation(fifthc):
     r = 0
     for i in range(0,n):
         c_fifth_n = fifthc[i]
-        r += c_fifth_n * cmath.exp(2 * cmath.pi * 1j * i / 12)
+        #r += c_fifth_n * cmath.exp(2 * cmath.pi * 1j * i / 12)
+        length = c_fifth_n * cmath.exp(2 * cmath.pi * 1j * i / 12)
+        r += length
+        #print(length)
+        #print(c_fifth_n)
+        #print(r)
+        #print("\n")
     r = abs(r)
     fifth = pow(1-r,1/2)
-    #if numpy.isnan(fifth):
-        #print("Nan")
+    if numpy.isnan(fifth):
+        print(r)
     return fifth
 
 #Entropy
